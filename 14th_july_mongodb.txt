@@ -1,0 +1,164 @@
+installation link : mongodb.com/try/download
+
+Installation process: click next-> leave file path as it is(but remember it)->next->unckeck the box(run service as network service user) because it will automatically start when our laptop runs->next->uncheck the box(install mongo campus) because it provides gui ->next->finish
+
+
+go to file where mongodb installed
+bin-> mongo(2nd file named as mongo is called shell)(click and run this)
+        also rum mongod
+
+
+
+steps:
+---------------
+open cmd
+--------------
+location to create database
+-------------------
+write on cmd-> cd\ 
+write on cmd -> mkdir data (this will make directory named as data)
+---------------------
+*****how to go to that "data " directory *****
+
+write-> cd data
+
+------------------------
+create a folder in  db
+------------------------
+write on cmd -> cd data
+than write-> mkdir db
+--------------------------
+1.how to see a folder in cmd ?
+-> go to that folder path 
+ write-> dir
+--------------------------------
+
+2. how to start service?
+
+-> we have to run mongod , so first go to root directory that is in c drive ( write in cmd-> cd\)
+->copy the path of the bin folder where mongodb installed 
+->write on cmd -> "C:\Program Files\MongoDB\Server\5.0\bin\mongod" --dbpath="c:\data\db"
+----------------------------------
+
+3.how to start shell?
+
+->dont close previous cmd where mongo service is running(question no 2)
+->open another cmd
+write on cmd->"C:\Program Files\MongoDB\Server\5.0\bin\mongo"
+------------------------------------
+
+just type on the cmd where mongo shell is running
+
+
+-> show dbs(this is for displaying database)
+->use test (this is for switch in table)
+---------------------------------------
+
+
+4. create collection?
+->db.createCollection("boysDiapers")
+-> db.createCollection("girlsDiapers")
+----------------------------------------
+5.how to get all collection name from database?
+-> db.getcollectionNames()
+----------------------------------------
+
+6.insert rows(documents) in table(collection)?
+->db.boyDiapers.insert({'size':1,'brand':'toddler','colour':'blue'})
+---------------------------------------------
+instead of select mongodb has find()
+
+7. db.boyDiapers.find()
+---------------------------------------------
+
+8. db.help()
+-> db.boyDiapers.help()
+
+----------------------------------------------
+
+9.db.girlDiapers.find().pretty()
+
+-----------------------------------------------
+
+10.db.girlDiapers.insertOne({one document})
+    db.girlDiapers.insertMany( [ {}, {} ,{} ] )
+
+-----------------------------------------------
+
+find data in collection
+
+11. db.girlDiapers.find({'size':3})
+
+-----------------------------------------------
+update value in collection
+
+12.db.girlDiapers.update({'colour':'white'},{$set:{'colour':'yellow'}})
+
+-----------------------------------------------
+
+upsert  means?
+->update or insert
+
+-------------------------------------------------
+by default update() function will only update one document in collection. If we want to update multiple  document(row) so we have to add one extra param like this
+
+->db.girlDiapers.update({'colour':'white'},{$set:{'colour':'yellow'}} , {multi:true})
+or
+-> use this 
+db.girlDiapers.updateMany({})
+
+------------------------------------------------
+
+detele documents
+
+13.db.girlDiapers.deleteOne({'size':'2})
+    db.girlDiapers.deleteOne({'_id': objectId("89uj78999777u77u8")})
+
+-------------------------------------------------
+
+Download database tool installation
+
+docs.mongodb.com/database-tools/installation/installation/
+->go to windows
+->Download the database tools MSI Installer
+->mongo database tool->click on download->remenber the path
+
+------------------------------------------------
+
+https://media.mongodb.org/zips.json
+
+copy all json data and paste it to a notepad and save it, remember the location
+
+open cmd
+
+go the folder where you copid the json file ( c:\ ->cd Desktop ->dir )
+
+copy the path of mongotool bin folder where mongoimport is there
+
+"C:\Program Files\MongoDB\Tools\100\bin\mongoimport" --db products --collection zipcodes  --type json --file zips.json 
+
+note:- zips.json is your file name where you saved all json value
+
+show dbs
+use products
+------------------------------------------------
+
+*****Aggregate function*****
+
+db.zipcodes.aggregate([{$group:{_id:'$state',totalpop:{$sum:'$pop'}}}])
+
+ db.zipcodes.aggregate([{$group:{_id:'$state',totalpop:{$sum:'$pop'}}}, {$match:{totalpop:{$gte:10*1000*1000}}}])
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
